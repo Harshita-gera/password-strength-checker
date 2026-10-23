@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Password Strength Checker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <main class="card">
+    <h1>Password Strength Checker</h1>
+    <p class="subtitle">Your password is analysed locally — nothing is stored or sent externally.</p>
+
+    <!-- Input -->
+    <div class="input-group">
+      <label for="password-input" class="sr-only">Password</label>
+      <input
+        id="password-input"
+        type="password"
+        placeholder="Type a password…"
+        autocomplete="off"
+        spellcheck="false"
+        aria-describedby="strength-label"
+      />
+      <button id="toggle-visibility" type="button" aria-label="Toggle password visibility">
+        <span id="eye-icon">👁</span>
+      </button>
+    </div>
+
+    <!-- Strength bar -->
+    <div class="meter-wrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Password strength">
+      <div id="meter-bar" class="meter-bar"></div>
+    </div>
+
+    <!-- Label + score -->
+    <div class="result-row">
+      <span id="strength-label" class="strength-label">—</span>
+      <span id="score-display" class="score-display"></span>
+    </div>
+
+    <!-- Score breakdown table -->
+    <table id="breakdown-table" class="breakdown-table" hidden>
+      <caption>Score Breakdown</caption>
+      <thead>
+        <tr>
+          <th scope="col">Criterion</th>
+          <th scope="col">Points earned</th>
+          <th scope="col">Max</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Length (≥8 → 10 pts, ≥12 → 20, ≥16 → 30)</td>
+          <td id="bd-length">—</td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td>Lowercase letters (a–z)</td>
+          <td id="bd-lower">—</td>
+          <td>15</td>
+        </tr>
+        <tr>
+          <td>Uppercase letters (A–Z)</td>
+          <td id="bd-upper">—</td>
+          <td>15</td>
+        </tr>
+        <tr>
+          <td>Digits (0–9)</td>
+          <td id="bd-digits">—</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>Special characters (!@#…)</td>
+          <td id="bd-special">—</td>
+          <td>20</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Suggestions -->
+    <ul id="suggestions-list" class="suggestions-list" aria-live="polite"></ul>
+
+    <!-- Privacy notice -->
+    <p class="privacy-note">
+      🔒 This tool never stores, logs, or transmits your password.
+      Analysis happens server-side in-memory only.
+    </p>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
